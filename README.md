@@ -143,7 +143,33 @@ Try these in your `weekend-plan` folder. Use `git status` whenever you are unsur
 1. **Make a checkpoint:** Add a favorite snack to `plan.txt`, stage the file, and commit it with a message. Check that the new checkpoint appears in `git log --oneline`.
 2. **Inspect a change:** Add one more line but do not stage it yet. Run `git diff` and identify the line you added. Then stage and commit it.
 3. **Try a branch:** Create a branch called `birthday-idea`, add a birthday activity, and commit it. Switch back to `main` (or `master`) and check that the birthday activity is not in that version.
-4. **Explain the diagram:** In your own words, describe the difference between a project folder, the staging area, and a commit.
+4. **Merge and resolve a conflict:** In `plan.txt`, add a line `- Activity: visit the park` and commit it on your original branch (`main` or `master`). Create a branch with `git switch -c museum-plan`, change that same line to `- Activity: visit the museum`, and commit. Switch back to your original branch, change the same line to `- Activity: visit the beach`, and commit. Now merge the other branch:
+
+   ```bash
+   git merge museum-plan
+   git status
+   ```
+
+   Git reports a conflict because both branches changed the same line differently. Open `plan.txt`; Git marks the competing versions like this:
+
+   ```text
+   <<<<<<< HEAD
+   - Activity: visit the beach
+   =======
+   - Activity: visit the museum
+   >>>>>>> museum-plan
+   ```
+
+   Choose or combine the ideas in your text editor, and delete the `<<<<<<<`, `=======`, and `>>>>>>>` marker lines. For example, leave `- Activity: visit the park and museum`. Save the file, then mark the conflict resolved and finish the merge:
+
+   ```bash
+   git add plan.txt
+   git commit -m "Merge museum plan"
+   git status
+   ```
+
+   Check that Git reports a clean working tree. A conflict is just Git asking you to choose what the final text should say; your resolution is saved in the merge commit.
+5. **Explain the diagram:** In your own words, describe the difference between a project folder, the staging area, and a commit.
 
 ### Check your understanding
 
